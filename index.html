@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Zimní olympijské hry – denní okna</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+      max-width: 700px;
+      margin: 40px auto;
+    }
+    .day {
+      padding: 20px;
+      background: #b0b0b0;
+      color: white;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: not-allowed;
+    }
+    .open {
+      background: #0077cc;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h1>ZIMNÍ OLYMPIJSKÉ HRY</h1>
+<p>Každý den se otevře jedno okno 👇</p>
+
+<div class="grid" id="calendar"></div>
+
+<script>
+  const startDate = new Date("2026-02-06T00:00:00");
+  const totalDays = 17;
+  const today = new Date();
+
+  const diffTime = today - startDate;
+  const unlockedDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+  const calendar = document.getElementById("calendar");
+
+  for (let i = 1; i <= totalDays; i++) {
+    const div = document.createElement("div");
+    div.className = "day";
+    div.textContent = "Den " + i;
+
+    if (i <= unlockedDays) {
+      div.classList.add("open");
+      div.onclick = () => {
+        // strana 1 = úvod, den 1 = strana 2
+        const page = i + 1;
+        window.open("ZIMNÍ OLYMPIJSKÉ HRY.pdf#page=" + page, "_blank");
+      };
+    }
+
+    calendar.appendChild(div);
+  }
+</script>
+
+</body>
+</html>
